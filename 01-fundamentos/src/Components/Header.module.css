@@ -1,7 +1,9 @@
 .header {
-    text-align: center;
-    text-transform: capitalize;
-    padding: 3px;
-    letter-spacing: 1px;
-    color: #eee;
+    padding: 2rem 0;
+    color: var(--gray-100);
+    display: flex;
+    justify-content: center;
+    gap: 0.80rem;
+    background-color: var(--gray-800);
+    border-bottom: 1px solid var(--green-500);
 }
