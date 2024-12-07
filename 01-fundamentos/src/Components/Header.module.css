@@ -5,5 +5,4 @@
     justify-content: center;
     gap: 0.80rem;
     background-color: var(--gray-800);
-    border-bottom: 1px solid var(--green-500);
 }

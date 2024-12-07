@@ -2,12 +2,10 @@ section {
     background-color: var(--gray-800);
     padding: 2.4rem;
     border-radius: 8px;
-    margin-bottom: 30px;
 }
 
-.hero {
-    display: flex;
-    gap: 1rem;
+section + section {
+    margin-top: 2rem;
 }
 
 .img {
@@ -17,11 +15,43 @@ section {
     border-radius: 8px;
 }
 
+.infos p{
+    line-height: 1.6;
+    margin: 1.6rem 1rem 0 0;
+    color: var(--gray-300);
+    font-size: 1.01rem;
+}
+
+.infos a {
+    margin-top: 2rem;
+    color: var(--green-500);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .head {
     display: flex;
     flex-direction: column;
+    gap: 0.32rem;
 }
 
-header p {
-    margin-left: auto;
+.head span {
+    letter-spacing: 1px;
+    color: var(--gray-400);
+}
+
+.head strong {
+    color: var(--gray-100);
 }
