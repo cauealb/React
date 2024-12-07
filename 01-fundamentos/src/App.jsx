@@ -1,7 +1,7 @@
-import { Header } from "./Components/Header"
-import { Post } from "./Components/Post"
 import AppCSS from './Components/App.module.css'
+import { Header } from "./Components/Header"
 import { SideBar } from "./Components/Sidebar"
+import { Post } from './Components/Post'
 
 export function App() {
 
