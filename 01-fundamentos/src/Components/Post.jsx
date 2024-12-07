@@ -39,12 +39,14 @@ export function Post(){
                     <button type='submit'>Publicar</button>
                 </footer>
             </form>
-            <Comment />
-            <Comment />
-            <Comment />
-            <Comment />
-            <Comment />
-            <Comment />
+            <div className={post.commentList}>
+                <Comment />
+                <Comment />
+                <Comment />
+                <Comment />
+                <Comment />
+                <Comment />
+            </div>
         </section>
     );
 }
