@@ -1,4 +1,5 @@
 import post from '../Components/Post.module.css'
+import { Comment } from './Comment';
 
 export function Post(){
     return (
@@ -38,6 +39,7 @@ export function Post(){
                     <button type='submit'>Publicar</button>
                 </footer>
             </form>
+            <Comment />
         </section>
     );
 }
