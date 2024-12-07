@@ -59,3 +59,57 @@ section + section {
 .head strong {
     color: var(--gray-100);
 }
+
+.formComment {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.75rem;
+    border-top: 1px solid var(--gray-600);
+    gap: 1rem;
+}
+
+.comment {
+    background-color: var(--gray-900);
+    outline: none;
+    resize: none;
+    border: 1px solid var(--gray-900);
+    border-radius: 8px;
+    padding: .60rem;
+    color: var(--gray-100);
+    line-height: 1.2 ;
+}
+
+.comment:focus{
+    border: 1px solid var(--green-500);
+}
+
+.formComment p {
+    margin-top: 1.6rem;
+    color: var(--gray-100);
+}
+
+.formComment footer {
+    visibility: hidden;
+    max-height: 0;
+}
+
+.formComment:focus-within footer {
+    visibility: visible;
+    max-height: none;
+}
+
+.formComment button {
+    width: fit-content;
+    padding: .90rem 2rem;
+    border-radius: 8px;
+    background-color: var(--green-500);
+    color: var(--gray-100);
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s linear;
+}
+
+.formComment button:hover{
+    background-color: var(--green-300);
+}

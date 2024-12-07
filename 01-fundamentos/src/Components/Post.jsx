@@ -27,15 +27,17 @@ export function Post(){
                 </p>
             </div>
 
-            {/* <form className={sidebar.formComment}>
-                <strong>Deixe seu feedback</strong>
+            <form className={post.formComment}>
+                <p>Deixe seu feedback</p>
 
-                <textarea className={siderbar.comment}>
+                <textarea rows={4} placeholder='Escreva um comentário...'
+                className={post.comment}>
 
                 </textarea>
-
-                <button type='submit'>Publicar</button>
-            </form> */}
+                <footer>
+                    <button type='submit'>Publicar</button>
+                </footer>
+            </form>
         </section>
     );
 }
