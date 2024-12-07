@@ -29,6 +29,10 @@ section + section {
     font-weight: bold;
 }
 
+.link:hover {
+    color: var(--green-300);
+}
+
 .hero {
     display: flex;
     align-items: center;
