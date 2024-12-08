@@ -46,7 +46,7 @@ export function App() {
         {api.map(post => {
           return (
             <Post 
-              key={api.id}
+              key={post.id}
               author={post.author}
               content={post.content}
               date={post.public}

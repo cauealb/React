@@ -24,6 +24,10 @@ export function Post({author, date, content}){
         setNewCommentNow(event.target.value)
     }
 
+    function deleteComment (comment) {
+        console.log(`Deletar comentário ${comment}`)
+    }
+
 
     const dateTitle = format(date, "dd 'de' LLLL 'de' KK:mm'h'", {
         locale: ptBR
@@ -52,9 +56,9 @@ export function Post({author, date, content}){
             <div className={post.infos}>
                 {content.map(line => {
                     if (line.type === 'paragraph') {
-                        return <p>{line.content}</p>
+                        return <p key={line.content}>{line.content}</p>
                     } else if (line.type === 'link') {
-                        return <p><a href="#">{line.content}</a></p>
+                        return <p key={line.content}><a href="#">{line.content}</a></p>
                     }
                 })}
             </div>
@@ -77,8 +81,8 @@ export function Post({author, date, content}){
                 </footer>
             </form>
             <div className={post.commentList}>
-                {comm.map(index => {
-                    return <Comment value={index}/>
+                {comm.map(comment => {
+                    return <Comment key={comment} value={comment} deleteComment={deleteComment}/>
                 })}
             </div>
         </section>
