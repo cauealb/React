@@ -37,6 +37,10 @@
     cursor: pointer;
 }
 
+.author button:hover {
+    color: red;
+}
+
 
 .head {
     display: flex;

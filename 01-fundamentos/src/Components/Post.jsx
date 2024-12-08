@@ -1,10 +1,26 @@
+import { useState } from 'react';
 import post from '../Components/Post.module.css'
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
 import { format, formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 
+
 export function Post({author, date, content}){
+
+    const [comm , setComments] = useState([])
+
+    function mudarComm (){
+        event.preventDefault()
+
+        const newComment = event.target.comment.value
+
+        setComments([...comm, newComment])
+
+        event.target.comment.value = ""
+    }
+
+
     const dateTitle = format(date, "dd 'de' LLLL 'de' KK:mm'h'", {
         locale: ptBR
     })
@@ -39,10 +55,10 @@ export function Post({author, date, content}){
                 })}
             </div>
 
-            <form className={post.formComment}>
+            <form onSubmit={mudarComm} className={post.formComment}>
                 <p>Deixe seu feedback</p>
 
-                <textarea rows={4} placeholder='Escreva um comentário...'
+                <textarea name="comment" rows={4} placeholder='Escreva um comentário...'
                 className={post.comment}>
 
                 </textarea>
@@ -51,10 +67,9 @@ export function Post({author, date, content}){
                 </footer>
             </form>
             <div className={post.commentList}>
-                <Comment />
-                <Comment />
-                <Comment />
-                <Comment />
+                {comm.map(index => {
+                    return <Comment value={index}/>
+                })}
             </div>
         </section>
     );
