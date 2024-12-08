@@ -8,16 +8,20 @@ import ptBR from 'date-fns/locale/pt-BR'
 
 export function Post({author, date, content}){
 
+    const [newCommentNow, setNewCommentNow] = useState('')
     const [comm , setComments] = useState([])
 
     function mudarComm (){
         event.preventDefault()
 
-        const newComment = event.target.comment.value
+        setComments([...comm, newCommentNow])
+        setNewCommentNow('')
+    }
 
-        setComments([...comm, newComment])
+    function handleCommentChange (){
+        event.preventDefault()
 
-        event.target.comment.value = ""
+        setNewCommentNow(event.target.value)
     }
 
 
@@ -58,8 +62,14 @@ export function Post({author, date, content}){
             <form onSubmit={mudarComm} className={post.formComment}>
                 <p>Deixe seu feedback</p>
 
-                <textarea name="comment" rows={4} placeholder='Escreva um comentário...'
-                className={post.comment}>
+                <textarea 
+                    value={newCommentNow}
+                    onChange={handleCommentChange} 
+                    name="comment" 
+                    rows={4} 
+                    placeholder='Escreva um comentário...'
+                    className={post.comment}
+                >
 
                 </textarea>
                 <footer>
