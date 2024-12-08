@@ -32,7 +32,6 @@ export function Post({author, date, content}){
         setComments(newComments)
     }
 
-
     const dateTitle = format(date, "dd 'de' LLLL 'de' KK:mm'h'", {
         locale: ptBR
     })
