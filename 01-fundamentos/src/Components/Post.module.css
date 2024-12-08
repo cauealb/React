@@ -1,10 +1,10 @@
-section {
+.postBox {
     background-color: var(--gray-800);
     padding: 2.4rem;
     border-radius: 8px;
 }
 
-section + section {
+.postBox + .postBox {
     margin-top: 2rem;
 }
 
@@ -112,4 +112,8 @@ section + section {
 
 .formComment button:hover{
     background-color: var(--green-300);
+}
+
+.commentList {
+    margin-top: 1.6rem;
 }

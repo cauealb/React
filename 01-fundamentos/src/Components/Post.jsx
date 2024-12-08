@@ -3,7 +3,7 @@ import { Comment } from './Comment';
 
 export function Post(){
     return (
-        <section>
+        <section className={post.postBox}>
             <header className={post.hero}>
                 <div className={post.author}>
                 <img 
@@ -40,8 +40,6 @@ export function Post(){
                 </footer>
             </form>
             <div className={post.commentList}>
-                <Comment />
-                <Comment />
                 <Comment />
                 <Comment />
                 <Comment />

@@ -4,6 +4,10 @@
     gap: 0.75rem;
 }
 
+.comment + .comment {
+    margin-top: 1.6rem;
+}
+
 .comment img {
     width: 50px;
     border-radius: 8px;
@@ -20,14 +24,19 @@
 
 .author {
     display: flex;
+    align-items: flex-start;
     justify-content: space-between;
 }
 
 .author button {
-    background-color: transparent;
-    border: none;
-    color: var(--gray-200);
+    background: transparent;
+    border: 0;
+    border: 8px;
+    line-height: 0;
+    color: white;
+    cursor: pointer;
 }
+
 
 .head {
     display: flex;
@@ -35,12 +44,16 @@
     line-height: 1.6;
 }
 
+.head strong {
+    color: #fff;
+}
+
 .head time {
     font-size: 0.90rem;
 }
 
 .content {
-    margin-top: 1.3rem;
+    margin: 1.3rem 0 .75rem;
 }
 
 .infos {
@@ -52,13 +65,24 @@
 .ft button {
     border: none;
     background-color: transparent;
-    color: var(--gray-200);
+    color: var(--gray-400);
     display: flex;
     align-items: center;
     cursor: pointer;
+    gap: 0.70rem;
+    border-radius: 2px;
+}
+
+.ft button:hover {
+    color: var(--green-300);
 }
 
 .ft {
     width: fit-content;
     margin-top: 1rem;
+}
+
+.ft button span::before {
+    content: "\2022";
+    padding: 0 0.20rem;
 }
