@@ -4,7 +4,7 @@ import { Comment } from './Comment';
 import { format, formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 
-export function Post({author, date}){
+export function Post({author, date, content}){
     const dateTitle = format(date, "dd 'de' LLLL 'de' KK:mm'h'", {
         locale: ptBR
     })
@@ -24,20 +24,19 @@ export function Post({author, date}){
                         <span>{author.role}</span>
                     </div>
                 </div>
-                <time title={dateTitle}>
+                <time title={dateTitle} dateTime={date.toISOString()}>
                     {datePrincipal}
                 </time>
             </header>
 
             <div className={post.infos}>
-                <p>Fala galeraa 👋</p>
-                <p>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-                <p>👉 {' '}<a href='#' className={post.link}>jane.design/doctorcare</a></p>
-                <p>
-                    <a href='#' className={post.link}>#novoprojeto</a>{' '}
-                    <a href="#" className={post.link}>#nlw</a>{' '}
-                    <a href="" className={post.link}>#rocketseat</a>{' '}
-                </p>
+                {content.map(line => {
+                    if (line.type === 'paragraph') {
+                        return <p>{line.content}</p>
+                    } else if (line.type === 'link') {
+                        return <p><a href="#">{line.content}</a></p>
+                    }
+                })}
             </div>
 
             <form className={post.formComment}>

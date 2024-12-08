@@ -26,9 +26,9 @@ const api = [
           role: "Web Developer"
       },
       content: [
-          { type: 'paragraph', content: 'Fala galeraa 👋' },
-          { type: 'paragraph', content: 'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀' },
-          { type: 'link', content: 'jane.design/doctorcare' }
+          { type: 'paragraph', content: 'Bom dia a todos 👋' },
+          { type: 'paragraph', content: 'Acabei de consegui fazer aquele depoy da minha aplicação com Java com Angular, estou bastante feliz. Quem puder dar um feedback, ficarei muito agradecida!! Segue abaixo o link da aplicação. 🚀' },
+          { type: 'link', content: 'www.pitica-deploy.com.br' }
       ],
       public: new Date('2024-12-05 08:00:00')
   }
