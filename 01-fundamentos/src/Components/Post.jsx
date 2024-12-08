@@ -81,7 +81,7 @@ export function Post({author, date, content}){
 
                 </textarea>
                 <footer>
-                    <button type='submit'>Publicar</button>
+                    <button type='submit' disabled={newCommentNow.length === 0}>Publicar</button>
                 </footer>
             </form>
             <div className={post.commentList}>
