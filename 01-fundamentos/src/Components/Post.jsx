@@ -1,19 +1,32 @@
 import post from '../Components/Post.module.css'
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
+import { format, formatDistanceToNow } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
 
-export function Post(){
+export function Post({author, date}){
+    const dateTitle = format(date, "dd 'de' LLLL 'de' KK:mm'h'", {
+        locale: ptBR
+    })
+
+    const datePrincipal =formatDistanceToNow(date, {
+        locale: ptBR,
+        addSuffix: true
+    })
+
     return (
         <section className={post.postBox}>
             <header className={post.hero}>
                 <div className={post.author}>
-                    <Avatar src="https://avatars.githubusercontent.com/u/2254731?v=4"/>
+                    <Avatar src={author.auhtorUrl}/>
                     <div className={post.head}>
-                        <strong>Cauê Alves</strong>
-                        <span>Web Developer</span>
+                        <strong>{author.authorName}</strong>
+                        <span>{author.role}</span>
                     </div>
                 </div>
-                <time title='07 de dezembro de 2024'>Pública há 1hr</time>
+                <time title={dateTitle}>
+                    {datePrincipal}
+                </time>
             </header>
 
             <div className={post.infos}>
