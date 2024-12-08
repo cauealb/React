@@ -1,4 +1,5 @@
 import post from '../Components/Post.module.css'
+import { Avatar } from './Avatar';
 import { Comment } from './Comment';
 
 export function Post(){
@@ -6,12 +7,10 @@ export function Post(){
         <section className={post.postBox}>
             <header className={post.hero}>
                 <div className={post.author}>
-                <img 
-                    className={post.img}
-                    src="https://avatars.githubusercontent.com/u/167707073?v=4" />
+                    <Avatar src="https://avatars.githubusercontent.com/u/2254731?v=4"/>
                     <div className={post.head}>
                         <strong>Cauê Alves</strong>
-                        <span>UI Design</span>
+                        <span>Web Developer</span>
                     </div>
                 </div>
                 <time title='07 de dezembro de 2024'>Pública há 1hr</time>
