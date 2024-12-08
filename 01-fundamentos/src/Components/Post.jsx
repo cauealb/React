@@ -25,7 +25,11 @@ export function Post({author, date, content}){
     }
 
     function deleteComment (comment) {
-        console.log(`Deletar comentário ${comment}`)
+        const newComments = comm.filter(com => {
+            return com != comment
+        })
+
+        setComments(newComments)
     }
 
 
