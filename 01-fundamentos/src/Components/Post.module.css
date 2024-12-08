@@ -53,6 +53,10 @@
     color: var(--gray-100);
 }
 
+.hero time {
+    color: var(--gray-400);
+}
+
 .formComment {
     display: flex;
     flex-direction: column;
