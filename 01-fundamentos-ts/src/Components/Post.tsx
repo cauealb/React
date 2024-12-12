@@ -16,14 +16,19 @@ interface Content {
     content: string
 }
 
-interface AuthorProps {
+export interface PostInteface {
+    id: number
     author: Author
-    date: Date
+    public: Date
     content: Content[]
 }
 
+interface AuthorProps {
+    postPost: PostInteface;
+}
 
-export function Post({author, date, content}: AuthorProps){
+
+export function Post({postPost}: AuthorProps){
 
     const [newCommentNow, setNewCommentNow] = useState('')
     const [comm, setComments] = useState([
@@ -51,11 +56,11 @@ export function Post({author, date, content}: AuthorProps){
         setComments(newComments)
     }
 
-    const dateTitle = format(date, "dd 'de' LLLL 'de' KK:mm'h'", {
+    const dateTitle = format(postPost.public, "dd 'de' LLLL 'de' KK:mm'h'", {
         locale: ptBR
     })
 
-    const datePrincipal =formatDistanceToNow(date, {
+    const datePrincipal =formatDistanceToNow(postPost.public, {
         locale: ptBR,
         addSuffix: true
     })
@@ -64,19 +69,19 @@ export function Post({author, date, content}: AuthorProps){
         <section className={post.postBox}>
             <header className={post.hero}>
                 <div className={post.author}>
-                    <Avatar src={author.auhtorUrl}/>
+                    <Avatar src={postPost.author.auhtorUrl}/>
                     <div className={post.head}>
-                        <strong>{author.authorName}</strong>
-                        <span>{author.role}</span>
+                        <strong>{postPost.author.authorName}</strong>
+                        <span>{postPost.author.role}</span>
                     </div>
                 </div>
-                <time title={dateTitle} dateTime={date.toISOString()}>
+                <time title={dateTitle} dateTime={postPost.public.toISOString()}>
                     {datePrincipal}
                 </time>
             </header>
 
             <div className={post.infos}>
-                {content.map(line => {
+                {postPost.content.map(line => {
                     if (line.type === 'paragraph') {
                         return <p key={line.content}>{line.content}</p>
                     } else if (line.type === 'link') {

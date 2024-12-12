@@ -1,9 +1,9 @@
 import AppCSS from './App.module.css'
 import { Header } from "./Components/Header.tsx"
 import { SideBar } from "./Components/Sidebar.tsx"
-import { Post } from './Components/Post.tsx'
+import { Post, PostInteface } from './Components/Post.tsx'
 
-const api = [
+const api: PostInteface[] = [
   {
       id: 1,
       author: {
@@ -47,9 +47,7 @@ export function App() {
           return (
             <Post 
               key={post.id}
-              author={post.author}
-              content={post.content}
-              date={post.public}
+              postPost={post}
             />
           )
         })}
