@@ -1,35 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import AppCSS from './App.module.css'
+import { Header } from "./Components/Header.tsx"
+import { SideBar } from "./Components/Sidebar.tsx"
+import { Post } from './Components/Post.tsx'
 
-function App() {
-  const [count, setCount] = useState(0)
+const api = [
+  {
+      id: 1,
+      author: {
+          authorName: "Cauê Alves",
+          auhtorUrl: "https://avatars.githubusercontent.com/u/167707073?v=4",
+          role: "Full-Stack Developer"
+      },
+      content: [
+          { type: 'paragraph', content: 'Fala galeraa 👋' },
+          { type: 'paragraph', content: 'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀' },
+          { type: 'link', content: 'jane.design/doctorcare' }
+      ],
+      public: new Date('2024-12-08 08:00:00')
+  },
+  {
+      id: 2,
+      author: {
+          authorName: "Geovanna Vasconcelos",
+          auhtorUrl: "https://avatars.githubusercontent.com/u/167707073?v=4",
+          role: "Web Developer"
+      },
+      content: [
+          { type: 'paragraph', content: 'Bom dia a todos 👋' },
+          { type: 'paragraph', content: 'Acabei de consegui fazer aquele depoy da minha aplicação com Java com Angular, estou bastante feliz. Quem puder dar um feedback, ficarei muito agradecida!! Segue abaixo o link da aplicação. 🚀' },
+          { type: 'link', content: 'www.pitica-deploy.com.br' }
+      ],
+      public: new Date('2024-12-05 08:00:00')
+  }
+]
+
+export function App() {
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div>
+      <Header />
+
+      <div className={AppCSS.wapper}>
+        <SideBar />
+        <main>
+        {api.map(post => {
+          return (
+            <Post 
+              key={post.id}
+              author={post.author}
+              content={post.content}
+              date={post.public}
+            />
+          )
+        })}
+        </main>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
-
-export default App
