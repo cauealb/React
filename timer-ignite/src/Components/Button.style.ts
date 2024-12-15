@@ -12,6 +12,6 @@ export const ButtonComponents = styled.button<BCProsp>`
     margin-right: 10px;
     border-radius: 8px;
     border: none;
-    color: ${props => props.theme.secound}
+    background-color: ${props => props.theme['--green-500']}
 `
 
