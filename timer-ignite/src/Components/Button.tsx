@@ -8,7 +8,7 @@ interface ButtonProps {
 export function Button({bc = 'primary'}: ButtonProps) {
     return (
         <>
-            <ButtonComponents bc={bc}>Enviar</ButtonComponents>
+            <ButtonComponents variant={bc}>Enviar</ButtonComponents>
         </>
     )
 }

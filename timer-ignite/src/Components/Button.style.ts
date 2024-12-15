@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import { DefaultTheme } from "../Theme/default";
 
 export type colorsButton = 'primary' | 'secound' | 'success' | 'danger';
 
 interface BCProsp {
-    bc: colorsButton;
+    variant: colorsButton;
 }
 
 const colors = {
@@ -16,10 +17,9 @@ const colors = {
 export const ButtonComponents = styled.button<BCProsp>`
     width: 100px;
     height: 100px;
-    margin-right: 30px
+    margin-right: 30px;
 
-    ${props => {
-        return `background-color: ${colors[props.bc]}`
-    }}
+    color: ${props => DefaultTheme.secound}
+    
 `
 
