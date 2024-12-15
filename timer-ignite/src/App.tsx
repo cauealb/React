@@ -2,7 +2,7 @@ import { ThemeProvider } from "styled-components";
 import { DefaultTheme } from "./styles/Theme/default";
 import { GlobalStyled } from "./styles/global";
 import { BrowserRouter } from 'react-router'
-import { Router } from "./Components/Router";
+import { Router } from "./Router";
 
 function App() {
   return (

@@ -13,10 +13,6 @@ export const GlobalStyled = createGlobalStyle`
     }
 
     body {
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         background-color: #333;
         background-color: ${props => props.theme['--gray-900']}
     }
