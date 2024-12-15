@@ -1,7 +1,12 @@
+import { Button } from "./Components/Button";
+
 function App() {
   return (
     <>
-      <h1>Hello Word</h1>
+      <Button bc="primary"/>
+      <Button bc="secound"/>
+      <Button bc="success"/>
+      <Button bc="danger"/>
     </>
   )
 }
