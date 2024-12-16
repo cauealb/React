@@ -7,10 +7,10 @@ export function Home() {
                 <PrincipalStyled>
                     <InputsStyled>
                         <label htmlFor="taks">Vou trabalhar em</label>
-                        <input type="text" id="taks" placeholder="Dê um nome para seu projeto"/>
+                        <input type="text" id="taks" placeholder="Dê um nome para seu projeto" required/>
 
                         <label htmlFor="duration">durante</label>
-                        <input type="text" id="duration" placeholder="- 00 +" />
+                        <input type="text" id="duration" placeholder="- 00 +" required/>
 
                         <span>minutos.</span>
                     </InputsStyled>
