@@ -1,17 +1,19 @@
 import { Play } from "phosphor-react";
-import { StyleForm } from "./Home.style";
+import { PrincipalStyled, InputsStyled } from "./Home.style";
 
 export function Home() {
     return (
             <>
-                <StyleForm>
-                    <label htmlFor="taks">Vou trabalhar em</label>
-                    <input type="text" id="taks" placeholder="Dê um nome para seu projeto"/>
+                <PrincipalStyled>
+                    <InputsStyled>
+                        <label htmlFor="taks">Vou trabalhar em</label>
+                        <input type="text" id="taks" placeholder="Dê um nome para seu projeto"/>
 
-                    <label htmlFor="duration">Durante</label>
-                    <input type="text" id="duration" placeholder="- 00 +" />
+                        <label htmlFor="duration">durante</label>
+                        <input type="text" id="duration" placeholder="- 00 +" />
 
-                    <span>minutos.</span>
+                        <span>minutos.</span>
+                    </InputsStyled>
 
                     <div>
                         <span>0</span>
@@ -25,7 +27,7 @@ export function Home() {
                         <Play />
                         Começar
                     </button>
-                </StyleForm>
+                </PrincipalStyled>
             </>
     ) 
 }
