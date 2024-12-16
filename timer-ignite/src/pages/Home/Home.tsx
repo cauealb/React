@@ -1,9 +1,10 @@
 import { Play } from "phosphor-react";
+import { StyleForm } from "./Home.style";
 
 export function Home() {
     return (
             <>
-                <form>
+                <StyleForm>
                     <label htmlFor="taks">Vou trabalhar em</label>
                     <input type="text" id="taks" placeholder="Dê um nome para seu projeto"/>
 
@@ -24,7 +25,7 @@ export function Home() {
                         <Play />
                         Começar
                     </button>
-                </form>
+                </StyleForm>
             </>
     ) 
 }

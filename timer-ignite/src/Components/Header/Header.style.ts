@@ -7,28 +7,30 @@ export const LayoutHeader = styled.header`
     justify-content: space-between;
 
     img {
-        height: 7px
+        width: 30px
     }
 
     nav {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 0.45rem;
+        gap: 1.8rem;
     }
 
     a {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 0.75rem;
-        height: 0.75rem;
         color: ${props => props.theme['--gray-100']};
-        border-bottom: 0.5px solid transparent;
-        border-top: 0.5px solid transparent;
+        border-bottom: 2px solid transparent;
+        border-top: 2px solid transparent;
 
         &:hover {
-            border-bottom: 0.5px solid ${props => props.theme['--green-500']}
+            border-bottom: 2px solid ${props => props.theme['--green-500']};
+        }
+
+        &:active {
+            color: ${props => props.theme['--green-500']}
         }
     }
 `;
