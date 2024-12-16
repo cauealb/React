@@ -1,5 +1,5 @@
 import { Play } from "phosphor-react";
-import { PrincipalStyled, InputsStyled } from "./Home.style";
+import { PrincipalStyled, InputsStyled, StyleDurantion, StyledButton } from "./Home.style";
 
 export function Home() {
     return (
@@ -15,18 +15,18 @@ export function Home() {
                         <span>minutos.</span>
                     </InputsStyled>
 
-                    <div>
+                    <StyleDurantion>
                         <span>0</span>
                         <span>0</span>
                         <span>:</span>
                         <span>0</span>
                         <span>0</span>
-                    </div>
+                    </StyleDurantion>
 
-                    <button type="submit">
+                    <StyledButton type="submit">
                         <Play />
                         Começar
-                    </button>
+                    </StyledButton>
                 </PrincipalStyled>
             </>
     ) 
