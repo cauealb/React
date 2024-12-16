@@ -10,10 +10,11 @@ export const PrincipalStyled = styled.form`
 `;
 
 export const InputsStyled = styled.div`
-    font-size: 2.8rem;
+    font-size: 2.4rem;
     font-family: "Roboto";
     display: flex;
-    align-self: center;
+    align-items: center;
+    justify-content: center;
     gap: 0.75rem;
     color: ${props => props.theme['--gray-100']};
 
@@ -22,28 +23,31 @@ export const InputsStyled = styled.div`
         background-color: transparent;
         border-bottom: 2px solid ${props => props.theme['--gray-400']};
         width: fit-content;
-        font-size: 1rem;
+        padding: 0.50rem;
+        font-size: 1.4rem;
     }
+`;
+
+export const Separator = styled.span`
+    background-color: transparent;
+    color: ${props => props.theme['--green-500']};
+    margin: 0 1rem;
+`;
+
+export const StyledSpan = styled.span`
+        background-color: ${props => props.theme['--gray-600']};
+        border-radius: 8px;
+        padding: 1.6rem;
 `;
 
 export const StyleDurantion = styled.div`
     display: flex;
     align-self: center;
     width: fit-content;
-    gap: 0.75rem;
+    gap: 2rem;
     font-weight: "Roboto Mono", monospace;
     font-size: 23rem;
     margin: 2rem 0;
-
-    span {
-        background-color: ${props => props.theme['--gray-600']};
-        border-radius: 8px;
-        padding: 1.6rem
-    }
-`;
-
-
-export const Separator = styled.span`
 
 `;
 
@@ -58,9 +62,15 @@ export const StyledButton = styled.button`
     border-radius: 8px;
     font-size: 2rem;
     cursor: pointer;
+    transition: background-color 0.2s linear;
 
 
     &:hover {
-        background-color: ${props => props.theme['--green-300']}
+        background-color: ${props => props.theme['--green-300']};
+        color: ${props => props.theme['--gray-100']}
     }
+`;
+
+export const InputTrascription = styled.input`
+    background-color: yellow;
 `;
