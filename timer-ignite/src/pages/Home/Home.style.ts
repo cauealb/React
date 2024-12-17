@@ -4,20 +4,16 @@ import styled from "styled-components";
 export const PrincipalStyled = styled.form`
     display: flex;
     flex-direction: column;
-    width: fit-content;
+    width: 46%;
     margin: auto;
     font-weight: bold;
-    background-color: ${props => props.theme['--green-500']};
 `;
 
 export const InputsStyled = styled.div`
-    font-size: 2.4rem;
+    font-size: 2.6rem;
     font-family: "Roboto" sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
     gap: 0.75rem;
-    letter-spacing: 1px;
     color: ${props => props.theme['--gray-100']};
 
     input {
@@ -25,11 +21,12 @@ export const InputsStyled = styled.div`
         background-color: transparent;
         border-bottom: 2px solid ${props => props.theme['--gray-400']};
         padding: 0.50rem;
-        font-size: 1.4rem;
+        font-size: 1.6rem;
+        margin: 0;
     }
 
     input:nth-child(2) {
-        width: 33%
+        width: 40%
     }
 
     input:nth-child(4) {
@@ -40,7 +37,6 @@ export const InputsStyled = styled.div`
 export const Separator = styled.span`
     background-color: transparent;
     color: ${props => props.theme['--green-500']};
-    margin: 0 1rem;
 `;
 
 export const StyledSpan = styled.span`
@@ -55,16 +51,16 @@ export const StyleDurantion = styled.div`
     width: fit-content;
     gap: 1.6rem;
     font-weight: "Roboto Mono", monospace;
-    font-size: 23rem;
-    margin: 4rem 0;
+    font-size: 20rem;
+    margin: 3rem 0;
 `;
 
 export const StyledButton = styled.button`
     padding: 2rem;
     display: flex;
+    gap: 0.50rem;
     justify-content: center;
     align-items: center;
-    gap: 0.75rem;
     background-color: ${props => props.theme['--green-500']};
     border: none;
     border-radius: 8px;
