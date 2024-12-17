@@ -1,5 +1,5 @@
 import { Play } from "phosphor-react";
-import { PrincipalStyled, InputsStyled, StyleDurantion, StyledButton, Separator, StyledSpan } from "./Home.style";
+import { PrincipalStyled, InputsStyled, StyleDurantion, StyledButton, Separator, StyledSpan, TaskInput, MinuteInput } from "./Home.style";
 
 export function Home() {
     return (
@@ -7,10 +7,10 @@ export function Home() {
                 <PrincipalStyled>
                     <InputsStyled>
                         <label htmlFor="taks">Vou trabalhar em</label>
-                        <input type="text" id="taks" placeholder="Dê um nome para seu projeto" required/>
+                        <TaskInput type="text" id="taks" placeholder="Dê um nome para seu projeto" required/>
 
                         <label htmlFor="duration">durante</label>
-                        <input type="text" id="duration" placeholder="- 00 +" required/>
+                        <MinuteInput type="number" id="duration" placeholder="00" required />
 
                         <span>minutos.</span>
                     </InputsStyled>
@@ -23,7 +23,7 @@ export function Home() {
                         <StyledSpan>0</StyledSpan>
                     </StyleDurantion>
 
-                    <StyledButton type="submit">
+                    <StyledButton type="submit" disabled>
                         <Play size={24}/>
                         Começar
                     </StyledButton>
