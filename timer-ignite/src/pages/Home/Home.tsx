@@ -7,10 +7,31 @@ export function Home() {
                 <PrincipalStyled>
                     <InputsStyled>
                         <label htmlFor="taks">Vou trabalhar em</label>
-                        <TaskInput type="text" id="taks" placeholder="Dê um nome para seu projeto" required/>
+                        <TaskInput  
+                            type="text" 
+                            id="taks"  
+                            list="DataList"
+                            placeholder="Dê um nome para seu projeto" 
+                            required
+                        />
+
+                        <datalist id="DataList">
+                            <option value="Arrumar Quarto" />
+                            <option value="Começar curso de node" />
+                            <option value="Conversar com a gata" />
+                            <option value="Treinar" />
+                        </datalist>
 
                         <label htmlFor="duration">durante</label>
-                        <MinuteInput type="number" id="duration" placeholder="00" required />
+                        <MinuteInput 
+                            type="number" 
+                            id="duration" 
+                            placeholder="00" 
+                            required 
+                            step={5}
+                            min={5}
+                            max={60}
+                        />
 
                         <span>minutos.</span>
                     </InputsStyled>
