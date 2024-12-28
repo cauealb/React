@@ -1,4 +1,4 @@
-import { DivTable, Header, TableStyle } from "./History.style";
+import { DivTable, Header, TableStyle, Status } from "./History.style";
 
 export function History() {
     return (
@@ -19,43 +19,57 @@ export function History() {
                             <td>Tarefa</td>
                             <td>20 minutos</td>
                             <td>Há 1 mês atrás</td>
-                            <td>Conclído</td>
+                            <td>
+                                <Status colorStatus="green">Concluído</Status>
+                            </td>
                         </tr>
                         <tr>
                             <td>Tarefa</td>
                             <td>20 minutos</td>
                             <td>Há 1 mês atrás</td>
-                            <td>Conclído</td>
+                            <td>
+                                <Status colorStatus="yellow">Em andamento</Status>
+                            </td>
                         </tr>
                         <tr>
                             <td>Tarefa</td>
                             <td>20 minutos</td>
                             <td>Há 1 mês atrás</td>
-                            <td>Conclído</td>
+                            <td>
+                                <Status colorStatus="green">Concluído</Status>
+                            </td>
                         </tr>
                         <tr>
                             <td>Tarefa</td>
                             <td>20 minutos</td>
                             <td>Há 1 mês atrás</td>
-                            <td>Conclído</td>
+                            <td>
+                                <Status colorStatus="green">Concluído</Status>
+                            </td>
                         </tr>
                         <tr>
                             <td>Tarefa</td>
                             <td>20 minutos</td>
                             <td>Há 1 mês atrás</td>
-                            <td>Conclído</td>
+                            <td>
+                                <Status colorStatus="red">Interrompido</Status>
+                            </td>
                         </tr>
                         <tr>
                             <td>Tarefa</td>
                             <td>20 minutos</td>
                             <td>Há 1 mês atrás</td>
-                            <td>Conclído</td>
+                            <td>
+                                <Status colorStatus="red">Interrompido</Status>
+                            </td>
                         </tr>
                         <tr>
                             <td>Tarefa</td>
                             <td>20 minutos</td>
                             <td>Há 1 mês atrás</td>
-                            <td>Conclído</td>
+                            <td>
+                                <Status colorStatus="green">Concluído</Status>
+                            </td>
                         </tr>
                         
                     </tbody>  

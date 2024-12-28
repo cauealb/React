@@ -42,3 +42,28 @@ export const TableStyle = styled.table`
         border-top: 4px solid ${props => props.theme['--gray-700']}
     }
 `;
+
+const BCColorStatus = {
+    yellow: '--yellow-500',
+    green: '--green-500',
+    red: '--red-500' 
+}as const
+
+interface StatusProps {
+    colorStatus: keyof typeof BCColorStatus
+}
+
+export const Status = styled.span<StatusProps>`
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+
+    &::before {
+        content: '';
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: ${(props) => props.theme[BCColorStatus[props.colorStatus]]}
+    }
+`;
