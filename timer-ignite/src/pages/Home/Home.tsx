@@ -11,11 +11,9 @@ const configSubmitInputs = zod.object({
 
 export function Home() {
     
-    const {register, handleSubmit, watch, formState} = useForm({
+    const {register, handleSubmit, watch} = useForm({
         resolver: zodResolver(configSubmitInputs)
     })
-
-    console.log(formState.errors)
 
     function handleNewCreteTask(data: any){
         console.log(data)
