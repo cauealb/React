@@ -1,10 +1,21 @@
 import { Play } from "phosphor-react";
 import { PrincipalStyled, InputsStyled, StyleDurantion, StyledButton, Separator, StyledSpan, TaskInput, MinuteInput } from "./Home.style";
-import { useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form';
+import * as zod from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod'
+
+const configSubmitInputs = zod.object({
+    task: zod.string().min(5, 'A tarefa tem quer no mínimo 5 carácteres'),
+    minute: zod.number().min(5, 'Tempo menor que 5').max(60, 'Tempo maior que 60')
+})
 
 export function Home() {
+    
+    const {register, handleSubmit, watch, formState} = useForm({
+        resolver: zodResolver(configSubmitInputs)
+    })
 
-    const {register, handleSubmit, watch} = useForm()
+    console.log(formState.errors)
 
     function handleNewCreteTask(data: any){
         console.log(data)
@@ -26,6 +37,8 @@ export function Home() {
                             list="DataList"
                             placeholder="Dê um nome para seu projeto" 
                             required
+                            autoFocus
+                            autoComplete="off"
                         />
 
                         <datalist id="DataList">
@@ -43,7 +56,7 @@ export function Home() {
                             required 
                             step={5}
                             min={5}
-                            max={60}
+                            // max={60}
                             {...register('minute', { valueAsNumber: true })}
                         />
 
