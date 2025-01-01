@@ -3,6 +3,7 @@ import { PrincipalStyled, InputsStyled, StyleDurantion, StyledButton, Separator,
 import { useForm } from "react-hook-form";
 import  * as zod from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 
 const newCycleValidating = zod.object({
     task: zod.string().min(1, 'Informe a tarefa corretamente'),
@@ -11,10 +12,18 @@ const newCycleValidating = zod.object({
 
 type NewFormCycle = zod.infer<typeof newCycleValidating>
 
+interface Cycle {
+    id: number,
+    taskName: string,
+    minute: number
+}
 
 export function Home() {
 
-    const {register, handleSubmit, watch, formState, reset} = useForm<NewFormCycle>({
+    const [cycles, setCycles] = useState<Cycle[]>([])
+    const [isActive, setIsActive] = useState<number | null>(null)
+
+    const {register, handleSubmit, watch, reset} = useForm<NewFormCycle>({
         resolver: zodResolver(newCycleValidating),
         defaultValues: {
             task: '',
@@ -22,8 +31,21 @@ export function Home() {
         }
     })
 
-    function SubmitfromServer(data: any){
-        console.log(data)
+    const existCycle = cycles.find((idCycle) => idCycle.id === isActive)
+
+    console.log(existCycle)
+
+    function SubmitfromServer(data: NewFormCycle){
+        const newCycle: Cycle = {
+            id: new Date().getTime(),
+            taskName: data.task,
+            minute: data.minute
+        }
+
+        setCycles((state) => [...state, newCycle])
+
+        setIsActive(newCycle.id)
+
         reset()
     }
 
