@@ -22,6 +22,7 @@ export function Home() {
 
     const [cycles, setCycles] = useState<Cycle[]>([])
     const [isActive, setIsActive] = useState<number | null>(null)
+    const [secondsComparesion, setSecondsComparesion] = useState(0)
 
     const {register, handleSubmit, watch, reset} = useForm<NewFormCycle>({
         resolver: zodResolver(newCycleValidating),
@@ -32,6 +33,15 @@ export function Home() {
     })
 
     const existCycle = cycles.find((idCycle) => idCycle.id === isActive)
+
+    const totalSeconds = existCycle ? existCycle.minute * 60 : 0
+    const secondCompare = existCycle ? totalSeconds - secondsComparesion : 0
+
+    const minutesCompare = Math.floor(secondCompare / 60)
+    const secondsCompare = secondCompare % 60
+
+    const seconds = String(secondsCompare).padStart(2, '0')    
+    const minutes = String(minutesCompare).padStart(2, '0')    
 
     console.log(existCycle)
 
@@ -92,11 +102,11 @@ export function Home() {
                     </InputsStyled>
 
                     <StyleDurantion>
-                        <StyledSpan>0</StyledSpan>
-                        <StyledSpan>0</StyledSpan>
+                        <StyledSpan>{minutes[0]}</StyledSpan>
+                        <StyledSpan>{minutes[1]}</StyledSpan>
                         <Separator>:</Separator>
-                        <StyledSpan>0</StyledSpan>
-                        <StyledSpan>0</StyledSpan>
+                        <StyledSpan>{seconds[0]}</StyledSpan>
+                        <StyledSpan>{seconds[1]}</StyledSpan>
                     </StyleDurantion>
 
                     <StyledButton type="submit" disabled={AsInvalid}>
