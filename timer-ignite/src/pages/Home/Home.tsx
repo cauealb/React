@@ -1,35 +1,35 @@
 import { Play } from "phosphor-react";
 import { PrincipalStyled, InputsStyled, StyleDurantion, StyledButton, Separator, StyledSpan, TaskInput, MinuteInput } from "./Home.style";
-import { useForm } from 'react-hook-form';
-import * as zod from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from "react-hook-form";
+import  * as zod from 'zod'
+import { zodResolver } from "@hookform/resolvers/zod";
 
-const configSubmitInputs = zod.object({
-    task: zod.string().min(5, 'A tarefa tem quer no mínimo 5 carácteres'),
-    minute: zod.number().min(5, 'Tempo menor que 5').max(60, 'Tempo maior que 60')
+const newCycleValidating = zod.object({
+    task: zod.string().min(1, 'Informe a tarefa corretamente'),
+    minute: zod.number().min(5, 'Valor menor que 5').max(60, 'Valor maior que 60')
 })
 
 export function Home() {
-    
-    const {register, handleSubmit, watch} = useForm({
-        resolver: zodResolver(configSubmitInputs)
+
+    const {register, handleSubmit, watch, formState} = useForm({
+        resolver: zodResolver(newCycleValidating)
     })
 
-    function handleNewCreteTask(data: any){
+    function SubmitfromServer(data: any){
         console.log(data)
     }
 
+    console.log(formState.errors)
+
     const task = watch('task')
-    const minute = watch('minute')
-    const isSubmitInvalid = !task || !minute
+    const AsInvalid = !task
 
     return (
             <>
-                <PrincipalStyled onSubmit={handleSubmit(handleNewCreteTask)}>
+                <PrincipalStyled onSubmit={handleSubmit(SubmitfromServer)}>
                     <InputsStyled>
                         <label htmlFor="taks">Vou trabalhar em</label>
                         <TaskInput  
-                            {...register('task')}
                             type="text" 
                             id="taks"  
                             list="DataList"
@@ -37,6 +37,7 @@ export function Home() {
                             required
                             autoFocus
                             autoComplete="off"
+                            {...register('task')}
                         />
 
                         <datalist id="DataList">
@@ -54,8 +55,9 @@ export function Home() {
                             required 
                             step={5}
                             min={5}
-                            // max={60}
-                            {...register('minute', { valueAsNumber: true })}
+                            {...register('minute', { 
+                                valueAsNumber: true
+                            })}
                         />
 
                         <span>minutos.</span>
@@ -69,7 +71,7 @@ export function Home() {
                         <StyledSpan>0</StyledSpan>
                     </StyleDurantion>
 
-                    <StyledButton type="submit" disabled={isSubmitInvalid}>
+                    <StyledButton type="submit" disabled={AsInvalid}>
                         <Play size={24}/>
                         Começar
                     </StyledButton>
