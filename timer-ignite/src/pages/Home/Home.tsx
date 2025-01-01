@@ -6,20 +6,26 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const newCycleValidating = zod.object({
     task: zod.string().min(1, 'Informe a tarefa corretamente'),
-    minute: zod.number().min(5, 'Valor menor que 5').max(60, 'Valor maior que 60')
+    minute: zod.number().min(5, 'Valor menor que 5').max(60, 'Valor maior que 60'),
 })
+
+type NewFormCycle = zod.infer<typeof newCycleValidating>
+
 
 export function Home() {
 
-    const {register, handleSubmit, watch, formState} = useForm({
-        resolver: zodResolver(newCycleValidating)
+    const {register, handleSubmit, watch, formState, reset} = useForm<NewFormCycle>({
+        resolver: zodResolver(newCycleValidating),
+        defaultValues: {
+            task: '',
+            minute: 0
+        }
     })
 
     function SubmitfromServer(data: any){
         console.log(data)
+        reset()
     }
-
-    console.log(formState.errors)
 
     const task = watch('task')
     const AsInvalid = !task
