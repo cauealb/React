@@ -3,7 +3,7 @@ import { PrincipalStyled, InputsStyled, StyleDurantion, StyledButton, Separator,
 import { useForm } from "react-hook-form";
 import  * as zod from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const newCycleValidating = zod.object({
     task: zod.string().min(1, 'Informe a tarefa corretamente'),
@@ -45,22 +45,31 @@ export function Home() {
 
     console.log(existCycle)
 
+    
     function SubmitfromServer(data: NewFormCycle){
         const newCycle: Cycle = {
             id: new Date().getTime(),
             taskName: data.task,
             minute: data.minute
         }
-
+        
         setCycles((state) => [...state, newCycle])
-
+        
         setIsActive(newCycle.id)
-
+        
         reset()
     }
-
+    
     const task = watch('task')
     const AsInvalid = !task
+    
+    // useEffect(() => {
+    //     console.log('alterado!!!!!!!!!!!!')
+    // }, [task])
+
+    // useEffect(() => {
+    //     console.log('Dados puxados do banco')
+    // }, [])
 
     return (
             <>
