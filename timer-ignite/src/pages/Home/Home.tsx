@@ -1,5 +1,5 @@
-import { Play } from "phosphor-react";
-import { PrincipalStyled, InputsStyled, StyleDurantion, StyledButton, Separator, StyledSpan, TaskInput, MinuteInput } from "./Home.style";
+import { Pause, Play } from "phosphor-react";
+import { PrincipalStyled, InputsStyled, StyleDurantion, StartStyledButton, StopStyledButton, Separator, StyledSpan, TaskInput, MinuteInput } from "./Home.style";
 import { useForm } from "react-hook-form";
 import  * as zod from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -131,10 +131,17 @@ export function Home() {
                         <StyledSpan>{seconds[1]}</StyledSpan>
                     </StyleDurantion>
 
-                    <StyledButton type="submit" disabled={AsInvalid}>
-                        <Play size={24}/>
-                        Começar
-                    </StyledButton>
+                    {isActive ? (
+                        <StopStyledButton type="button">
+                            <Pause size={24}/>
+                            Interromper
+                        </StopStyledButton>
+                    ) : (
+                        <StartStyledButton type="submit" disabled={AsInvalid}>
+                            <Play size={24}/>
+                            Começar
+                        </StartStyledButton>
+                    )}
                 </PrincipalStyled>
             </>
     ) 

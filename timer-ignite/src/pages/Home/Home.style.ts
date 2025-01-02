@@ -71,13 +71,12 @@ export const StyleDurantion = styled.div`
     margin: 3rem 0;
 `;
 
-export const StyledButton = styled.button`
+export const BaseStyledButton = styled.button`
     padding: 2rem;
     display: flex;
     gap: 0.50rem;
     justify-content: center;
     align-items: center;
-    background-color: ${props => props.theme['--green-500']};
     border: none;
     border-radius: 8px;
     font-size: 2rem;
@@ -88,9 +87,22 @@ export const StyledButton = styled.button`
         opacity: 0.7;
         cursor: not-allowed;
     }
+`;
+
+export const StartStyledButton = styled(BaseStyledButton)`
+    background-color: ${props => props.theme['--green-500']};
 
     &:not(:disabled):hover {
         background-color: ${props => props.theme['--green-300']};
+        color: ${props => props.theme['--gray-100']}
+    }
+`;
+
+export const StopStyledButton = styled(BaseStyledButton)`
+    background-color: ${props => props.theme['--red-500']};
+
+    &:hover {
+        background-color: ${props => props.theme['--red-700']};
         color: ${props => props.theme['--gray-100']}
     }
 `;
