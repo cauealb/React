@@ -8,7 +8,7 @@ import { differenceInSeconds } from 'date-fns'
 
 const newCycleValidating = zod.object({
     task: zod.string().min(1, 'Informe a tarefa corretamente'),
-    minute: zod.number().min(5, 'Valor menor que 5').max(60, 'Valor maior que 60'),
+    minute: zod.number().min(1, 'Valor menor que 5').max(60, 'Valor maior que 60'),
 })
 
 type NewFormCycle = zod.infer<typeof newCycleValidating>
@@ -18,7 +18,8 @@ interface Cycle {
     taskName: string,
     minute: number,
     start: Date,
-    stopDate?: Date
+    stopDate?: Date,
+    finishDate?: Date
 }
 
 export function Home() {
@@ -34,25 +35,41 @@ export function Home() {
             minute: 0
         }
     })
-
+    
     const existCycle = cycles.find((idCycle) => idCycle.id === isActive)
+    const totalSeconds = existCycle ? existCycle.minute * 60 : 0
 
     useEffect(() => {
         let interval: number
-
+        let SecondsNow: number
+        
         if (existCycle) {
             interval = setInterval(() => {
-                setSecondsComparesion(differenceInSeconds(new Date(), existCycle.start))
+                SecondsNow = differenceInSeconds(new Date(), existCycle.start)
+
+                if(SecondsNow >= totalSeconds) {
+                    setCycles(
+                        cycles.map((item) => {
+                        if (item.id === isActive){
+                            return {...item, finishDate: new Date()}
+                        } else {
+                            return item
+                        }
+                    }))
+
+                    clearInterval(interval)
+                    setSecondsComparesion(totalSeconds)
+                } else {
+                    setSecondsComparesion(SecondsNow)
+                }
+
             }, 1000)
         }
-
         return () => {
             clearInterval(interval)        
-            setSecondsComparesion(0)
         }
     }, [existCycle])
 
-    const totalSeconds = existCycle ? existCycle.minute * 60 : 0
     const secondCompare = existCycle ? totalSeconds - secondsComparesion : 0
 
     const minutesCompare = Math.floor(secondCompare / 60)
@@ -80,6 +97,7 @@ export function Home() {
         
         setCycles((state) => [...state, newCycle])
         setIsActive(newCycle.id)
+        setSecondsComparesion(0)
         
         reset()
     }
@@ -129,7 +147,7 @@ export function Home() {
                             placeholder="00" 
                             required 
                             step={5}
-                            min={5}
+                            min={1}
                             disabled={!!isActive}
                             {...register('minute', {    
                                 valueAsNumber: true
