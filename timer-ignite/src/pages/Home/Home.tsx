@@ -64,6 +64,8 @@ export function Home() {
     useEffect(() => {
         if (existCycle){
             document.title = `${minutes}:${seconds}`
+        } else {
+            document.title = 'Ignite Timer'
         }
     }, [seconds, minutes])
 
@@ -85,13 +87,16 @@ export function Home() {
     function StopCycle() {
         cycles.map((item) => {
             if (item.id === isActive){
-                return {...cycles, stopDate: new Date()}
+                console.log(item.id, isActive)
+                return {...item, stopDate: new Date()}
             } else {
                 return cycles
             }
         })
         setIsActive(null)
     }
+
+    console.log(cycles)
     
     const task = watch('task')
     const AsInvalid = !task
