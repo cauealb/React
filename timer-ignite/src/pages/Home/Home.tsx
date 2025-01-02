@@ -17,7 +17,8 @@ interface Cycle {
     id: number,
     taskName: string,
     minute: number,
-    start: Date
+    start: Date,
+    stopDate?: Date
 }
 
 export function Home() {
@@ -80,6 +81,17 @@ export function Home() {
         
         reset()
     }
+
+    function StopCycle() {
+        cycles.map((item) => {
+            if (item.id === isActive){
+                return {...cycles, stopDate: new Date()}
+            } else {
+                return cycles
+            }
+        })
+        setIsActive(null)
+    }
     
     const task = watch('task')
     const AsInvalid = !task
@@ -132,7 +144,7 @@ export function Home() {
                     </StyleDurantion>
 
                     {isActive ? (
-                        <StopStyledButton type="button">
+                        <StopStyledButton onClick={StopCycle} type="button">
                             <Pause size={24}/>
                             Interromper
                         </StopStyledButton>

@@ -99,10 +99,10 @@ export const StartStyledButton = styled(BaseStyledButton)`
 `;
 
 export const StopStyledButton = styled(BaseStyledButton)`
-    background-color: ${props => props.theme['--red-500']};
+    background-color: ${props => props.theme['--red-700']};
 
     &:hover {
-        background-color: ${props => props.theme['--red-700']};
+        background-color: ${props => props.theme['--red-500']};
         color: ${props => props.theme['--gray-100']}
     }
 `;
