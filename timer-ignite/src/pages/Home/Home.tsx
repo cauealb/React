@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import  * as zod from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
+import { differenceInSeconds } from 'date-fns'
 
 const newCycleValidating = zod.object({
     task: zod.string().min(1, 'Informe a tarefa corretamente'),
@@ -15,7 +16,8 @@ type NewFormCycle = zod.infer<typeof newCycleValidating>
 interface Cycle {
     id: number,
     taskName: string,
-    minute: number
+    minute: number,
+    start: Date
 }
 
 export function Home() {
@@ -34,6 +36,21 @@ export function Home() {
 
     const existCycle = cycles.find((idCycle) => idCycle.id === isActive)
 
+    useEffect(() => {
+        let interval: number
+
+        if (existCycle) {
+            interval = setInterval(() => {
+                setSecondsComparesion(differenceInSeconds(new Date(), existCycle.start))
+            }, 1000)
+        }
+
+        return () => {
+            clearInterval(interval)        
+            setSecondsComparesion(0)
+        }
+    }, [existCycle])
+
     const totalSeconds = existCycle ? existCycle.minute * 60 : 0
     const secondCompare = existCycle ? totalSeconds - secondsComparesion : 0
 
@@ -43,18 +60,22 @@ export function Home() {
     const seconds = String(secondsCompare).padStart(2, '0')    
     const minutes = String(minutesCompare).padStart(2, '0')    
 
-    console.log(existCycle)
+    useEffect(() => {
+        if (existCycle){
+            document.title = `${minutes}:${seconds}`
+        }
+    }, [seconds, minutes])
 
     
     function SubmitfromServer(data: NewFormCycle){
         const newCycle: Cycle = {
             id: new Date().getTime(),
             taskName: data.task,
-            minute: data.minute
+            minute: data.minute,
+            start: new Date()
         }
         
         setCycles((state) => [...state, newCycle])
-        
         setIsActive(newCycle.id)
         
         reset()
@@ -62,14 +83,6 @@ export function Home() {
     
     const task = watch('task')
     const AsInvalid = !task
-    
-    // useEffect(() => {
-    //     console.log('alterado!!!!!!!!!!!!')
-    // }, [task])
-
-    // useEffect(() => {
-    //     console.log('Dados puxados do banco')
-    // }, [])
 
     return (
             <>
