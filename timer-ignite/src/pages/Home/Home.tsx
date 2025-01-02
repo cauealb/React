@@ -1,10 +1,12 @@
 import { Pause, Play } from "phosphor-react";
-import { PrincipalStyled, StyleDurantion, StartStyledButton, StopStyledButton, Separator, StyledSpan } from "./Home.style";
+import { PrincipalStyled, StartStyledButton, StopStyledButton } from "./Home.style";
 import { useForm } from "react-hook-form";
 import  * as zod from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { differenceInSeconds } from 'date-fns'
+import { Countdown } from "./components/InputForm/CountDown/Countdown";
+import { InputForm } from "./components/InputForm/InputForm";
 
 const newCycleValidating = zod.object({
     task: zod.string().min(1, 'Informe a tarefa corretamente'),
@@ -120,13 +122,8 @@ export function Home() {
             <>
                 <PrincipalStyled onSubmit={handleSubmit(SubmitfromServer)}>
 
-                    <StyleDurantion>
-                        <StyledSpan>{minutes[0]}</StyledSpan>
-                        <StyledSpan>{minutes[1]}</StyledSpan>
-                        <Separator>:</Separator>
-                        <StyledSpan>{seconds[0]}</StyledSpan>
-                        <StyledSpan>{seconds[1]}</StyledSpan>
-                    </StyleDurantion>
+                    <InputForm />
+                    <Countdown />
 
                     {isActive ? (
                         <StopStyledButton onClick={StopCycle} type="button">
