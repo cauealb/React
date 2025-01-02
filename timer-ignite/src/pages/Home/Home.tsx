@@ -109,6 +109,7 @@ export function Home() {
                             required
                             autoFocus
                             autoComplete="off"
+                            disabled={!!isActive}
                             {...register('task')}
                         />
 
@@ -127,7 +128,8 @@ export function Home() {
                             required 
                             step={5}
                             min={5}
-                            {...register('minute', { 
+                            disabled={!!isActive}
+                            {...register('minute', {    
                                 valueAsNumber: true
                             })}
                         />
