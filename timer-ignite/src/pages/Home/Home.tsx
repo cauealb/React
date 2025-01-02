@@ -87,16 +87,13 @@ export function Home() {
     function StopCycle() {
         cycles.map((item) => {
             if (item.id === isActive){
-                console.log(item.id, isActive)
                 return {...item, stopDate: new Date()}
             } else {
-                return cycles
+                return item
             }
         })
         setIsActive(null)
     }
-
-    console.log(cycles)
     
     const task = watch('task')
     const AsInvalid = !task
