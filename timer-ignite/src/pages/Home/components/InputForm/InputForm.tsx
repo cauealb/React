@@ -1,6 +1,13 @@
 import { InputsStyled, TaskInput, MinuteInput } from "./InputForm.s";
+import { useFormContext } from 'react-hook-form'
+import { useContext } from "react";
+import { CyclesContextAPI } from "../../Home";
+
 
 export function InputForm() {
+    const { isActive } = useContext(CyclesContextAPI)
+    const { register } = useFormContext()
+
     return (
         <>
             <InputsStyled>

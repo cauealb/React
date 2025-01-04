@@ -1,27 +1,20 @@
 import { Pause, Play } from "phosphor-react";
 import { PrincipalStyled, StartStyledButton, StopStyledButton } from "./Home.style";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import  * as zod from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState, createContext } from "react";
-import { differenceInSeconds } from 'date-fns'
+import { useState, createContext } from "react";
 import { Countdown } from "./components/CountDown/Countdown";
 import { InputForm } from "./components/InputForm/InputForm";
 
 
 interface CyclesContext {
     existCycle: Cycle | undefined,
+    isActive: number | null,
     markCycleFinished: () => void
 }
 
 export const CyclesContextAPI = createContext({} as CyclesContext)
-
-const newCycleValidating = zod.object({
-    task: zod.string().min(1, 'Informe a tarefa corretamente'),
-    minute: zod.number().min(1, 'Valor menor que 5').max(60, 'Valor maior que 60'),
-})
-
-type NewFormCycle = zod.infer<typeof newCycleValidating>
 
 interface Cycle {
     id: number,
@@ -32,19 +25,28 @@ interface Cycle {
     finishDate?: Date
 }
 
+const newCycleValidating = zod.object({
+    task: zod.string().min(1, 'Informe a tarefa corretamente'),
+    minute: zod.number().min(1, 'Valor menor que 5').max(60, 'Valor maior que 60'),
+})  
+
+type NewFormCycle = zod.infer<typeof newCycleValidating>
+
 export function Home() {
 
     const [cycles, setCycles] = useState<Cycle[]>([])
     const [isActive, setIsActive] = useState<number | null>(null)
 
-    const {register, handleSubmit, watch, reset} = useForm<NewFormCycle>({
+    const NewForm = useForm<NewFormCycle>({
         resolver: zodResolver(newCycleValidating),
         defaultValues: {
             task: '',
             minute: 0
         }
     })
-    
+
+    const { handleSubmit, reset, watch} = NewForm
+
     const existCycle = cycles.find((idCycle) => idCycle.id === isActive)
 
     function markCycleFinished() {
@@ -90,10 +92,12 @@ export function Home() {
 
     return (
             <>
-                <CyclesContextAPI.Provider value={{existCycle, markCycleFinished}}>
+                <CyclesContextAPI.Provider value={{existCycle, isActive,markCycleFinished}}>
                     <PrincipalStyled onSubmit={handleSubmit(SubmitfromServer)}>
 
-                        <InputForm />
+                        <FormProvider {...NewForm}>
+                            <InputForm />
+                        </FormProvider>
                         <Countdown />
 
                         {isActive ? (

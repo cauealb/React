@@ -5,7 +5,6 @@ import { useContext, useEffect, useState } from "react";
 
 export function Countdown() {
     const { existCycle, markCycleFinished } = useContext(CyclesContextAPI)
-
     const [secondsComparesion, setSecondsComparesion] = useState(0)
 
     const totalSeconds = existCycle ? existCycle.minute * 60 : 0
@@ -16,7 +15,6 @@ export function Countdown() {
     
     const seconds = String(secondsCompare).padStart(2, '0')    
     const minutes = String(minutesCompare).padStart(2, '0')   
-
 
     useEffect(() => {
         let interval: number
