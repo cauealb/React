@@ -3,10 +3,18 @@ import { PrincipalStyled, StartStyledButton, StopStyledButton } from "./Home.sty
 import { useForm } from "react-hook-form";
 import  * as zod from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext } from "react";
 import { differenceInSeconds } from 'date-fns'
-import { Countdown } from "./components/InputForm/CountDown/Countdown";
+import { Countdown } from "./components/CountDown/Countdown";
 import { InputForm } from "./components/InputForm/InputForm";
+
+
+interface CyclesContext {
+    existCycle: Cycle | undefined,
+    markCycleFinished: () => void
+}
+
+export const CyclesContextAPI = createContext({} as CyclesContext)
 
 const newCycleValidating = zod.object({
     task: zod.string().min(1, 'Informe a tarefa corretamente'),
@@ -28,7 +36,6 @@ export function Home() {
 
     const [cycles, setCycles] = useState<Cycle[]>([])
     const [isActive, setIsActive] = useState<number | null>(null)
-    const [secondsComparesion, setSecondsComparesion] = useState(0)
 
     const {register, handleSubmit, watch, reset} = useForm<NewFormCycle>({
         resolver: zodResolver(newCycleValidating),
@@ -39,54 +46,17 @@ export function Home() {
     })
     
     const existCycle = cycles.find((idCycle) => idCycle.id === isActive)
-    const totalSeconds = existCycle ? existCycle.minute * 60 : 0
 
-    useEffect(() => {
-        let interval: number
-        let SecondsNow: number
-        
-        if (existCycle) {
-            interval = setInterval(() => {
-                SecondsNow = differenceInSeconds(new Date(), existCycle.start)
-
-                if(SecondsNow >= totalSeconds) {
-                    setCycles(
-                        cycles.map((item) => {
-                        if (item.id === isActive){
-                            return {...item, finishDate: new Date()}
-                        } else {
-                            return item
-                        }
-                    }))
-
-                    clearInterval(interval)
-                    setSecondsComparesion(totalSeconds)
-                } else {
-                    setSecondsComparesion(SecondsNow)
-                }
-
-            }, 1000)
-        }
-        return () => {
-            clearInterval(interval)        
-        }
-    }, [existCycle])
-
-    const secondCompare = existCycle ? totalSeconds - secondsComparesion : 0
-
-    const minutesCompare = Math.floor(secondCompare / 60)
-    const secondsCompare = secondCompare % 60
-
-    const seconds = String(secondsCompare).padStart(2, '0')    
-    const minutes = String(minutesCompare).padStart(2, '0')    
-
-    useEffect(() => {
-        if (existCycle){
-            document.title = `${minutes}:${seconds}`
-        } else {
-            document.title = 'Ignite Timer'
-        }
-    }, [seconds, minutes])
+    function markCycleFinished() {
+        setCycles(
+            cycles.map((item) => {
+            if (item.id === isActive){
+                return {...item, finishDate: new Date()}
+            } else {
+                return item
+            }
+        }))
+    }
 
     
     function SubmitfromServer(data: NewFormCycle){
@@ -120,23 +90,25 @@ export function Home() {
 
     return (
             <>
-                <PrincipalStyled onSubmit={handleSubmit(SubmitfromServer)}>
+                <CyclesContextAPI.Provider value={{existCycle, markCycleFinished}}>
+                    <PrincipalStyled onSubmit={handleSubmit(SubmitfromServer)}>
 
-                    <InputForm />
-                    <Countdown />
+                        <InputForm />
+                        <Countdown />
 
-                    {isActive ? (
-                        <StopStyledButton onClick={StopCycle} type="button">
-                            <Pause size={24}/>
-                            Interromper
-                        </StopStyledButton>
-                    ) : (
-                        <StartStyledButton type="submit" disabled={AsInvalid}>
-                            <Play size={24}/>
-                            Começar
-                        </StartStyledButton>
-                    )}
-                </PrincipalStyled>
+                        {isActive ? (
+                            <StopStyledButton onClick={StopCycle} type="button">
+                                <Pause size={24}/>
+                                Interromper
+                            </StopStyledButton>
+                        ) : (
+                            <StartStyledButton type="submit" disabled={AsInvalid}>
+                                <Play size={24}/>
+                                Começar
+                            </StartStyledButton>
+                        )}
+                    </PrincipalStyled>
+                </CyclesContextAPI.Provider>
             </>
     ) 
 }
