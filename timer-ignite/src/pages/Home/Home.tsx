@@ -9,9 +9,11 @@ import { InputForm } from "./components/InputForm/InputForm";
 
 
 interface CyclesContext {
-    existCycle: Cycle | undefined,
-    isActive: number | null,
+    existCycle: Cycle | undefined
+    isActive: number | null
+    secondsComparesion: number
     markCycleFinished: () => void
+    setChangingSeconds: (seconds: number) => void
 }
 
 export const CyclesContextAPI = createContext({} as CyclesContext)
@@ -36,6 +38,7 @@ export function Home() {
 
     const [cycles, setCycles] = useState<Cycle[]>([])
     const [isActive, setIsActive] = useState<number | null>(null)
+    const [secondsComparesion, setSecondsComparesion] = useState(0)
 
     const NewForm = useForm<NewFormCycle>({
         resolver: zodResolver(newCycleValidating),
@@ -71,7 +74,7 @@ export function Home() {
         
         setCycles((state) => [...state, newCycle])
         setIsActive(newCycle.id)
-        setSecondsComparesion(0)
+        setChangingSeconds(0)
         
         reset()
     }
@@ -86,13 +89,17 @@ export function Home() {
         })
         setIsActive(null)
     }
+
+    function setChangingSeconds(seconds: number) {
+        setSecondsComparesion(seconds) 
+    }
     
     const task = watch('task')
     const AsInvalid = !task
 
     return (
             <>
-                <CyclesContextAPI.Provider value={{existCycle, isActive,markCycleFinished}}>
+                <CyclesContextAPI.Provider value={{existCycle, isActive, secondsComparesion, markCycleFinished, setChangingSeconds}}>
                     <PrincipalStyled onSubmit={handleSubmit(SubmitfromServer)}>
 
                         <FormProvider {...NewForm}>

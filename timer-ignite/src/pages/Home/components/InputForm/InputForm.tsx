@@ -38,7 +38,7 @@ export function InputForm() {
                             placeholder="00" 
                             required 
                             step={5}
-                            min={1}
+                            min={5}
                             disabled={!!isActive}
                             {...register('minute', {    
                                 valueAsNumber: true

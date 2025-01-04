@@ -1,11 +1,10 @@
 import { differenceInSeconds } from "date-fns";
 import { CyclesContextAPI } from "../../Home";
 import { StyleDurantion, StyledSpan, Separator } from "./Countdown.s";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 
 export function Countdown() {
-    const { existCycle, markCycleFinished } = useContext(CyclesContextAPI)
-    const [secondsComparesion, setSecondsComparesion] = useState(0)
+    const { existCycle, markCycleFinished, secondsComparesion, setChangingSeconds } = useContext(CyclesContextAPI)
 
     const totalSeconds = existCycle ? existCycle.minute * 60 : 0
     const secondCompare = existCycle ? totalSeconds - secondsComparesion : 0
@@ -27,9 +26,9 @@ export function Countdown() {
                 if(SecondsNow >= totalSeconds) {
                     markCycleFinished()
                     clearInterval(interval)
-                    setSecondsComparesion(totalSeconds)
+                    setChangingSeconds(totalSeconds)
                 } else {
-                    setSecondsComparesion(SecondsNow)
+                    setChangingSeconds(SecondsNow)
                 }
 
             }, 1000)
