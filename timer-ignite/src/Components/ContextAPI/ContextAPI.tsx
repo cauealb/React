@@ -5,7 +5,17 @@ interface NewTaskCreate {
     minute: number
 }
 
+interface Cycle {
+    id: number,
+    taskName: string,
+    minute: number,
+    start: Date,
+    stopDate?: Date,
+    finishDate?: Date
+}
+
 interface CyclesContext {
+    cycles: Cycle[]
     existCycle: Cycle | undefined
     isActive: number | null
     secondsComparesion: number
@@ -16,15 +26,6 @@ interface CyclesContext {
 }
 
 export const CycleContext = createContext({} as CyclesContext)
-
-interface Cycle {
-    id: number,
-    taskName: string,
-    minute: number,
-    start: Date,
-    stopDate?: Date,
-    finishDate?: Date
-}
 
 interface ContextAPIProviderProps {
     children: ReactNode;
@@ -81,6 +82,7 @@ export function ContextAPIProvider({children}: ContextAPIProviderProps) {
     return (
         <CycleContext.Provider 
             value={{
+                cycles,
                 existCycle, 
                 isActive, 
                 secondsComparesion, 

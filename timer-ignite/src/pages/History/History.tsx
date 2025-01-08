@@ -1,6 +1,11 @@
+import { useContext } from "react";
 import { DivTable, Header, TableStyle, Status } from "./History.style";
+import { CycleContext } from "../../Components/ContextAPI/ContextAPI";
 
 export function History() {
+
+    const { cycles } = useContext(CycleContext)
+
     return (
         <>
             <Header>Meu histório</Header>

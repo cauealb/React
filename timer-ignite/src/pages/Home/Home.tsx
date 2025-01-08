@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Countdown } from "./components/CountDown/Countdown";
 import { InputForm } from "./components/InputForm/InputForm";
 import { useContext } from "react";
-import { ContextAPIProvider, CycleContext } from "../../Components/ContextAPI/ContextAPI";
+import { CycleContext } from "../../Components/ContextAPI/ContextAPI";
 
 
 const newCycleValidating = zod.object({
