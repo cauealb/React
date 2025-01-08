@@ -3,9 +3,10 @@ import { PrincipalStyled, StartStyledButton, StopStyledButton } from "./Home.sty
 import { FormProvider, useForm } from "react-hook-form";
 import  * as zod from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, createContext } from "react";
 import { Countdown } from "./components/CountDown/Countdown";
 import { InputForm } from "./components/InputForm/InputForm";
+import { useContext } from "react";
+import { ContextAPIProvider, CycleContext } from "../../Components/ContextAPI/ContextAPI";
 
 
 const newCycleValidating = zod.object({
@@ -17,6 +18,8 @@ type NewFormCycle = zod.infer<typeof newCycleValidating>
 
 export function Home() {
 
+    const { SubmitfromServer, isActive, StopCycle,  } = useContext(CycleContext)
+
     const NewForm = useForm<NewFormCycle>({
         resolver: zodResolver(newCycleValidating),
         defaultValues: {
@@ -25,7 +28,7 @@ export function Home() {
         }
     })
 
-    const { handleSubmit, reset, watch} = NewForm
+    const { handleSubmit, /*reset */ watch} = NewForm
     
     const task = watch('task')
     const AsInvalid = !task

@@ -1,10 +1,12 @@
 import { differenceInSeconds } from "date-fns";
-import { CyclesContextAPI } from "../../Home";
+
 import { StyleDurantion, StyledSpan, Separator } from "./Countdown.s";
 import { useContext, useEffect } from "react";
+import { CycleContext } from "../../../../Components/ContextAPI/ContextAPI";
 
 export function Countdown() {
-    const { existCycle, markCycleFinished, secondsComparesion, setChangingSeconds } = useContext(CyclesContextAPI)
+
+    const { existCycle, markCycleFinished, secondsComparesion, setChangingSeconds } = useContext(CycleContext)
 
     const totalSeconds = existCycle ? existCycle.minute * 60 : 0
     const secondCompare = existCycle ? totalSeconds - secondsComparesion : 0

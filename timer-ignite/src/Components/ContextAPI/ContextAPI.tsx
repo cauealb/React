@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 
 interface NewTaskCreate {
     task: string
@@ -26,7 +26,11 @@ interface Cycle {
     finishDate?: Date
 }
 
-export function ContextAPIProvider() {
+interface ContextAPIProviderProps {
+    children: ReactNode;
+}
+
+export function ContextAPIProvider({children}: ContextAPIProviderProps) {
     const [cycles, setCycles] = useState<Cycle[]>([])
     const [isActive, setIsActive] = useState<number | null>(null)
     const [secondsComparesion, setSecondsComparesion] = useState(0)
@@ -86,6 +90,7 @@ export function ContextAPIProvider() {
                 SubmitfromServer
             }}>
 
+            {children}
         </CycleContext.Provider>
     )
 }
