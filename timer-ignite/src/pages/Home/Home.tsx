@@ -28,14 +28,19 @@ export function Home() {
         }
     })
 
-    const { handleSubmit, /*reset */ watch} = NewForm
+    const { handleSubmit, reset, watch} = NewForm
     
     const task = watch('task')
     const AsInvalid = !task
+    
+    function handleCreateNewTask(data: NewFormCycle) {
+        SubmitfromServer(data)
+        reset();
+    }
 
     return (
             <>
-                    <PrincipalStyled onSubmit={handleSubmit(SubmitfromServer)}>
+                    <PrincipalStyled onSubmit={handleSubmit(handleCreateNewTask)}>
 
                         <FormProvider {...NewForm}>
                             <InputForm />

@@ -27,7 +27,9 @@ export function Countdown() {
 
                 if(SecondsNow >= totalSeconds) {
                     markCycleFinished()
+                    console.log('oi1')
                     clearInterval(interval)
+                    console.log('oi2')
                     setChangingSeconds(totalSeconds)
                 } else {
                     setChangingSeconds(SecondsNow)

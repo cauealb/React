@@ -47,6 +47,8 @@ export function ContextAPIProvider({children}: ContextAPIProviderProps) {
                 return item
             }
         }))
+        console.log(cycles)
+        setIsActive(null)
     }
 
     function setChangingSeconds(seconds: number) {
@@ -58,24 +60,25 @@ export function ContextAPIProvider({children}: ContextAPIProviderProps) {
             id: new Date().getTime(),
             taskName: data.task,
             minute: data.minute,
-            start: new Date()
+            start: new Date(),
         }
-        
+        console.log(cycles)
         setCycles((state) => [...state, newCycle])
         setIsActive(newCycle.id)
         setChangingSeconds(0)
-        
-        // reset()
     }
 
     function StopCycle() {
-        cycles.map((item) => {
-            if (item.id === isActive){
-                return {...item, stopDate: new Date()}
-            } else {
-                return item
-            }
-        })
+        setCycles(
+            cycles.map((item) => {
+                if(item.id === isActive) {
+                    return { ...item, stopDate: new Date()}
+                } else {
+                    return item
+                }
+            })
+        )
+        console.log(cycles)
         setIsActive(null)
     }
 
