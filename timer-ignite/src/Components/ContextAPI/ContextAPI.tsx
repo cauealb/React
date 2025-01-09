@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useState, useReducer } from "react";
 
 interface NewTaskCreate {
     task: string
@@ -32,23 +32,40 @@ interface ContextAPIProviderProps {
 }
 
 export function ContextAPIProvider({children}: ContextAPIProviderProps) {
-    const [cycles, setCycles] = useState<Cycle[]>([])
+
+    const [cycles, dispatch] = useReducer((state: Cycle[], action: any) => {
+        console.log(state)
+        console.log(action)
+
+        return state
+    }, [])
+
+
+
+
     const [isActive, setIsActive] = useState<number | null>(null)
     const [secondsComparesion, setSecondsComparesion] = useState(0)
 
     const existCycle = cycles.find((idCycle) => idCycle.id === isActive)
 
     function markCycleFinished() {
-        setCycles(
-            cycles.map((item) => {
-            if (item.id === isActive){
-                return {...item, finishDate: new Date()}
-            } else {
-                return item
+        dispatch({
+            content: 'MarkFinishedCyclesTask',
+            payload: {
+                isActive
             }
-        }))
+        })
 
-        setIsActive(null)
+        // setCycles(
+        //     cycles.map((item) => {
+        //     if (item.id === isActive){
+        //         return {...item, finishDate: new Date()}
+        //     } else {
+        //         return item
+        //     }
+        // }))
+
+        // setIsActive(null)
     }
 
     function setChangingSeconds(seconds: number) {
@@ -62,23 +79,36 @@ export function ContextAPIProvider({children}: ContextAPIProviderProps) {
             minute: data.minute,
             start: new Date(),
         }
-        console.log(cycles)
-        setCycles((state) => [...state, newCycle])
+        
+        dispatch({
+            content: 'CreateNewTaskCycle',
+            payload: {
+                newCycle
+            }
+        })
+        // setCycles((state) => [...state, newCycle]):
         setIsActive(newCycle.id)
         setChangingSeconds(0)
     }
 
     function StopCycle() {
-        setCycles(
-            cycles.map((item) => {
-                if(item.id === isActive) {
-                    return { ...item, stopDate: new Date()}
-                } else {
-                    return item
-                }
-            })
-        )
-        setIsActive(null)
+        dispatch({
+            content: 'StopCycleTaks',
+            payload: {
+                isActive
+            }
+        })
+
+        // setCycles(
+        //     cycles.map((item) => {
+        //         if(item.id === isActive) {
+        //             return { ...item, stopDate: new Date()}
+        //         } else {
+        //             return item
+        //         }
+        //     })
+        // )
+        // setIsActive(null)
     }
 
     return (
