@@ -32,7 +32,7 @@ export function History() {
                                         }
 
                                         {item.finishDate && 
-                                            (<Status colorStatus="green"></Status>)
+                                            (<Status colorStatus="green">Concluído</Status>)
                                         }
 
                                         {(!item.stopDate) && (!item.finishDate) && 

@@ -47,7 +47,7 @@ export function ContextAPIProvider({children}: ContextAPIProviderProps) {
                 return item
             }
         }))
-        console.log(cycles)
+
         setIsActive(null)
     }
 
@@ -78,7 +78,6 @@ export function ContextAPIProvider({children}: ContextAPIProviderProps) {
                 }
             })
         )
-        console.log(cycles)
         setIsActive(null)
     }
 
