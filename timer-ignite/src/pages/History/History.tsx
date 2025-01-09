@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import { DivTable, Header, TableStyle, Status } from "./History.style";
 import { CycleContext } from "../../Components/ContextAPI/ContextAPI";
+import { formatDistanceToNow } from "date-fns";
+import ptBR from 'date-fns/locale/pt-BR'
 
 export function History() {
 
@@ -25,7 +27,10 @@ export function History() {
                                 <tr key={item.id}>
                                     <td>{item.taskName}</td>
                                     <td>{item.minute}</td>
-                                    <td>{item.start.toISOString()}</td>
+                                    <td>{formatDistanceToNow(item.start, {
+                                        addSuffix: true,
+                                        locale: ptBR    
+                                    })}</td>
                                     <td>
                                         {item.stopDate && 
                                             (<Status colorStatus="red">Interrompido</Status>)
