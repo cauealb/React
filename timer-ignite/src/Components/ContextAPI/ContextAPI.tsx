@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useState, useReducer } from "react";
+import { isCookie } from "react-router";
 
 interface NewTaskCreate {
     task: string
@@ -31,18 +32,45 @@ interface ContextAPIProviderProps {
     children: ReactNode;
 }
 
+interface StateProps {
+    cycles: Cycle[]
+    isActive: number | null
+}
+
 export function ContextAPIProvider({children}: ContextAPIProviderProps) {
 
-    const [cycles, dispatch] = useReducer((state: Cycle[], action: any) => {
+    const [setCycles, dispatch] = useReducer((state: StateProps, action: any) => {
         
         if(action.type === 'CreateNewTaskCycle') {
-            return [ ...state, action.payload.newCycle]
+            return {
+                ...state,
+                cycles: [ ...state.cycles, action.payload.newCycle],
+                isActive: action.payload.newCycle.id
+            }
+        }
+
+        if(action.type === 'StopCycleTaks') {
+            return {
+                ...state,
+                cycles: state.cycles.map((item) => {
+                        if(item.id === state.isActive) {
+                            return { ...item, stopDate: new Date()}
+                        } else {
+                            return item
+                        }
+                    }),
+                isActive: null
+            }
         }
 
         return state
-    }, [])
+    }, {
+        cycles: [],
+        isActive: null
+    })
 
-    const [isActive, setIsActive] = useState<number | null>(null)
+    const { cycles, isActive } = setCycles
+
     const [secondsComparesion, setSecondsComparesion] = useState(0)
 
     const existCycle = cycles.find((idCycle) => idCycle.id === isActive)
@@ -82,11 +110,12 @@ export function ContextAPIProvider({children}: ContextAPIProviderProps) {
         dispatch({
             type: 'CreateNewTaskCycle',
             payload: {
-                newCycle
+                newCycle,
+                isActive
             }
         })
         // setCycles((state) => [...state, newCycle]):
-        setIsActive(newCycle.id)
+        // setIsActive(newCycle.id)
         setChangingSeconds(0)
     }
 
@@ -97,16 +126,6 @@ export function ContextAPIProvider({children}: ContextAPIProviderProps) {
                 isActive
             }
         })
-
-        // setCycles(
-        //     cycles.map((item) => {
-        //         if(item.id === isActive) {
-        //             return { ...item, stopDate: new Date()}
-        //         } else {
-        //             return item
-        //         }
-        //     })
-        // )
         // setIsActive(null)
     }
 
