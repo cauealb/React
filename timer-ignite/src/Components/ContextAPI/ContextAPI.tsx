@@ -1,17 +1,9 @@
 import { createContext, ReactNode, useState, useReducer } from "react";
+import { Cycle, cyclesReducer, Action } from "../../pages/Reducers/Reducer";
 
 interface NewTaskCreate {
     task: string
     minute: number
-}
-
-interface Cycle {
-    id: number,
-    taskName: string,
-    minute: number,
-    start: Date,
-    stopDate?: Date,
-    finishDate?: Date
 }
 
 interface CyclesContext {
@@ -31,101 +23,12 @@ interface ContextAPIProviderProps {
     children: ReactNode;
 }
 
-interface StateProps {
-    cycles: Cycle[]
-    isActive: number | null
-}
-
 export function ContextAPIProvider({children}: ContextAPIProviderProps) {
 
-    const [setCycles, dispatch] = useReducer((state: StateProps, action: any) => {
-
-        switch(action.type) {
-            case 'CreateNewTaskCycle':
-                return {
-                    ...state,
-                    cycles: [...state.cycles, action.payload.newCycle],
-                    isActive: action.payload.newCycle.id
-                }
-
-            case 'StopCycleTaks':
-                return {
-                    ...state,
-                    cycles: state.cycles.map((item) => {
-                        if(item.id === state.isActive) {
-                            return {...item, stopDate: new Date()}
-                        } else {
-                            return item
-                        }
-                    }),
-                    isActive: null
-                }    
- 
-            case 'MarkFinishedCyclesTask':
-                return {
-                    ...state,
-                    cycles: state.cycles.map((item) => {
-                        if(item.id === state.isActive) {
-                            return { ...item, finishDate: new Date()}
-                        } else {
-                            return item
-                        }
-                    }),
-                    isActive: null
-                }
-            default: 
-                return state
-        }
-
-
-
-
-
-
-
-
-
-
-        
-        if(action.type === 'CreateNewTaskCycle') {
-            return {
-                ...state,
-                cycles: [ ...state.cycles, action.payload.newCycle],
-                isActive: action.payload.newCycle.id
-            }
-        }
-
-        if(action.type === 'StopCycleTaks') {
-            return {
-                ...state,
-                cycles: state.cycles.map((item) => {
-                        if(item.id === state.isActive) {
-                            return { ...item, stopDate: new Date()}
-                        } else {
-                            return item
-                        }
-                    }),
-                isActive: null
-            }
-        }
-
-        if (action.type === 'MarkFinishedCyclesTask') {
-            return {
-                ...state,
-                cycles: state.cycles.map((item) => {
-                    if(item.id === isActive) {
-                        return { ...state, finishDate: new Date()}
-                    }
-                }),
-                isActive: null
-            }
-        }
-
-        return state
-    }, {
+    const [setCycles, dispatch] = useReducer(cyclesReducer, {
         cycles: [],
         isActive: null
-    })
+    }) 
 
     const { cycles, isActive } = setCycles
 
@@ -135,22 +38,11 @@ export function ContextAPIProvider({children}: ContextAPIProviderProps) {
 
     function markCycleFinished() {
         dispatch({
-            type: 'MarkFinishedCyclesTask',
+            type: Action.MarkFinishedCyclesTask,
             payload: {
                 isActive
             }
         })
-
-        // setCycles(
-        //     cycles.map((item) => {
-        //     if (item.id === isActive){
-        //         return {...item, finishDate: new Date()}
-        //     } else {
-        //         return item
-        //     }
-        // }))
-
-        // setIsActive(null)
     }
 
     function setChangingSeconds(seconds: number) {
@@ -166,25 +58,22 @@ export function ContextAPIProvider({children}: ContextAPIProviderProps) {
         }
         
         dispatch({
-            type: 'CreateNewTaskCycle',
+            type: Action.CreateNewTaskCycle,
             payload: {
                 newCycle,
                 isActive
             }
         })
-        // setCycles((state) => [...state, newCycle]):
-        // setIsActive(newCycle.id)
         setChangingSeconds(0)
     }
 
     function StopCycle() {
         dispatch({
-            type: 'StopCycleTaks',
+            type: Action.StopCycleTaks,
             payload: {
                 isActive
             }
         })
-        // setIsActive(null)
     }
 
     return (
