@@ -1,5 +1,4 @@
 import { createContext, ReactNode, useState, useReducer } from "react";
-import { isCookie } from "react-router";
 
 interface NewTaskCreate {
     task: string
@@ -40,6 +39,53 @@ interface StateProps {
 export function ContextAPIProvider({children}: ContextAPIProviderProps) {
 
     const [setCycles, dispatch] = useReducer((state: StateProps, action: any) => {
+
+        switch(action.type) {
+            case 'CreateNewTaskCycle':
+                return {
+                    ...state,
+                    cycles: [...state.cycles, action.payload.newCycle],
+                    isActive: action.payload.newCycle.id
+                }
+
+            case 'StopCycleTaks':
+                return {
+                    ...state,
+                    cycles: state.cycles.map((item) => {
+                        if(item.id === state.isActive) {
+                            return {...item, stopDate: new Date()}
+                        } else {
+                            return item
+                        }
+                    }),
+                    isActive: null
+                }    
+ 
+            case 'MarkFinishedCyclesTask':
+                return {
+                    ...state,
+                    cycles: state.cycles.map((item) => {
+                        if(item.id === state.isActive) {
+                            return { ...item, finishDate: new Date()}
+                        } else {
+                            return item
+                        }
+                    }),
+                    isActive: null
+                }
+            default: 
+                return state
+        }
+
+
+
+
+
+
+
+
+
+
         
         if(action.type === 'CreateNewTaskCycle') {
             return {
@@ -59,6 +105,18 @@ export function ContextAPIProvider({children}: ContextAPIProviderProps) {
                             return item
                         }
                     }),
+                isActive: null
+            }
+        }
+
+        if (action.type === 'MarkFinishedCyclesTask') {
+            return {
+                ...state,
+                cycles: state.cycles.map((item) => {
+                    if(item.id === isActive) {
+                        return { ...state, finishDate: new Date()}
+                    }
+                }),
                 isActive: null
             }
         }
