@@ -34,14 +34,13 @@ interface ContextAPIProviderProps {
 export function ContextAPIProvider({children}: ContextAPIProviderProps) {
 
     const [cycles, dispatch] = useReducer((state: Cycle[], action: any) => {
-        console.log(state)
-        console.log(action)
+        
+        if(action.type === 'CreateNewTaskCycle') {
+            return [ ...state, action.payload.newCycle]
+        }
 
         return state
     }, [])
-
-
-
 
     const [isActive, setIsActive] = useState<number | null>(null)
     const [secondsComparesion, setSecondsComparesion] = useState(0)
@@ -50,7 +49,7 @@ export function ContextAPIProvider({children}: ContextAPIProviderProps) {
 
     function markCycleFinished() {
         dispatch({
-            content: 'MarkFinishedCyclesTask',
+            type: 'MarkFinishedCyclesTask',
             payload: {
                 isActive
             }
@@ -81,7 +80,7 @@ export function ContextAPIProvider({children}: ContextAPIProviderProps) {
         }
         
         dispatch({
-            content: 'CreateNewTaskCycle',
+            type: 'CreateNewTaskCycle',
             payload: {
                 newCycle
             }
@@ -93,7 +92,7 @@ export function ContextAPIProvider({children}: ContextAPIProviderProps) {
 
     function StopCycle() {
         dispatch({
-            content: 'StopCycleTaks',
+            type: 'StopCycleTaks',
             payload: {
                 isActive
             }
