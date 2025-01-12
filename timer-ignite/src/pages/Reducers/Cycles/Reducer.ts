@@ -28,31 +28,36 @@ export function cyclesReducer(state: StateProps, action: any) {
                 draft.isActive = action.payload.newCycle.id
             })
 
-        case Action.StopCycleTaks:
-            return {
-                ...state,
-                cycles: state.cycles.map((item) => {
-                    if(item.id === state.isActive) {
-                        return {...item, stopDate: new Date()}
-                    } else {
-                        return item
-                    }
-                }),
-                isActive: null
-            }    
+        case Action.StopCycleTaks: { 
+            const findTaskStop = state.cycles.findIndex((item) => {
+                return item.id === state.isActive
+            })
+
+            if(findTaskStop < 0){
+                return state
+            }
+
+            return produce(state, draft => {
+                draft.isActive = null
+                draft.cycles[findTaskStop].stopDate = new Date()
+            })
+        }
 
         case Action.MarkFinishedCyclesTask:
-            return {
-                ...state,
-                cycles: state.cycles.map((item) => {
-                    if(item.id === state.isActive) {
-                        return { ...item, finishDate: new Date()}
-                    } else {
-                        return item
-                    }
-                }),
-                isActive: null
+            
+            const findTaskStop = state.cycles.findIndex((item) => {
+                return item.id === state.isActive
+            })
+
+            if(findTaskStop < 0) {
+                return state
             }
+
+            return produce(state, draft => {
+                draft.isActive = null
+                draft.cycles[findTaskStop].finishDate = new Date()
+            })
+
         default: 
             return state
     }
