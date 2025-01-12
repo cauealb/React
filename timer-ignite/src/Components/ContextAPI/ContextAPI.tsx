@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useState, useReducer } from "react";
-import { Cycle, cyclesReducer, Action } from "../../pages/Reducers/Reducer";
+import { Cycle, cyclesReducer } from "../../pages/Reducers/Cycles/Reducer";
+import { markCycleFinishedActions, StopCycleTaksActions, CreateNewTaskCycleActions } from "../../pages/Reducers/Actions/Actions";
 
 interface NewTaskCreate {
     task: string
@@ -37,12 +38,7 @@ export function ContextAPIProvider({children}: ContextAPIProviderProps) {
     const existCycle = cycles.find((idCycle) => idCycle.id === isActive)
 
     function markCycleFinished() {
-        dispatch({
-            type: Action.MarkFinishedCyclesTask,
-            payload: {
-                isActive
-            }
-        })
+        dispatch(markCycleFinishedActions())
     }
 
     function setChangingSeconds(seconds: number) {
@@ -57,23 +53,12 @@ export function ContextAPIProvider({children}: ContextAPIProviderProps) {
             start: new Date(),
         }
         
-        dispatch({
-            type: Action.CreateNewTaskCycle,
-            payload: {
-                newCycle,
-                isActive
-            }
-        })
+        dispatch(CreateNewTaskCycleActions(newCycle))
         setChangingSeconds(0)
     }
 
     function StopCycle() {
-        dispatch({
-            type: Action.StopCycleTaks,
-            payload: {
-                isActive
-            }
-        })
+        dispatch(StopCycleTaksActions())
     }
 
     return (
