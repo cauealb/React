@@ -1,3 +1,5 @@
+import { produce } from 'immer'
+
 export interface Cycle {
     id: number,
     taskName: string,
@@ -21,11 +23,10 @@ export enum Action {
 export function cyclesReducer(state: StateProps, action: any) {
     switch(action.type) {
         case Action.CreateNewTaskCycle:
-            return {
-                ...state,
-                cycles: [...state.cycles, action.payload.newCycle],
-                isActive: action.payload.newCycle.id
-            }
+            return produce(state, draft => {
+                draft.cycles.push(action.payload.newCycle)
+                draft.isActive = action.payload.newCycle.id
+            })
 
         case Action.StopCycleTaks:
             return {
