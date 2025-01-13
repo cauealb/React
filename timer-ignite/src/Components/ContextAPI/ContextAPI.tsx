@@ -29,13 +29,21 @@ export function ContextAPIProvider({children}: ContextAPIProviderProps) {
     const [setCycles, dispatch] = useReducer(cyclesReducer, {
         cycles: [],
         isActive: null
+    }, (inital) => {
+        const cyclesJSON = localStorage.getItem('@ignite-timer:cycles-1.0.0')
+
+        if(cyclesJSON) {
+            return JSON.parse(cyclesJSON)
+        }
+
+        return inital
     }) 
 
     const { cycles, isActive } = setCycles
 
     useEffect(() => {
         const JSONCycles = JSON.stringify(cycles)
-        localStorage.setItem('@ignite-timer:cycles-1.0.1', JSONCycles)
+        localStorage.setItem('@ignite-timer:cycles-1.0.0', JSONCycles)
     }, [setCycles])
 
 
