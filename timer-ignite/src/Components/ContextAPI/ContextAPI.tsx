@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState, useReducer } from "react";
+import { createContext, ReactNode, useState, useReducer, useEffect } from "react";
 import { Cycle, cyclesReducer } from "../../pages/Reducers/Cycles/Reducer";
 import { markCycleFinishedActions, StopCycleTaksActions, CreateNewTaskCycleActions } from "../../pages/Reducers/Actions/Actions";
 
@@ -29,9 +29,22 @@ export function ContextAPIProvider({children}: ContextAPIProviderProps) {
     const [setCycles, dispatch] = useReducer(cyclesReducer, {
         cycles: [],
         isActive: null
+    }, (intial) => {
+        const variableJSON = localStorage.getItem('@ignite-timer:cycles-state')
+
+        if(variableJSON){
+            return JSON.parse(variableJSON)
+        }
+
+        return intial
     }) 
 
     const { cycles, isActive } = setCycles
+
+    useEffect(() => {
+        const cyclesJSON = JSON.stringify(cycles)
+        localStorage.setItem('@ignite-timer:cycles-state', cyclesJSON)
+    }, [cycles])
 
     const [secondsComparesion, setSecondsComparesion] = useState(0)
 
