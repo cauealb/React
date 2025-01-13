@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useState, useReducer, useEffect } from "react";
 import { Cycle, cyclesReducer } from "../../pages/Reducers/Cycles/Reducer";
 import { markCycleFinishedActions, StopCycleTaksActions, CreateNewTaskCycleActions } from "../../pages/Reducers/Actions/Actions";
+import { differenceInSeconds } from "date-fns";
 
 interface NewTaskCreate {
     task: string
@@ -44,12 +45,18 @@ export function ContextAPIProvider({children}: ContextAPIProviderProps) {
     useEffect(() => {
         const JSONCycles = JSON.stringify(cycles)
         localStorage.setItem('@ignite-timer:cycles-1.0.0', JSONCycles)
-    }, [setCycles])
+    }, [cycles])
+    
+    const existCycle = Array.isArray(cycles) ? cycles.find((idCycle) => idCycle.id === isActive) : undefined;
+    
+    const [secondsComparesion, setSecondsComparesion] = useState({
+        if(existCycle) {
+            return differenceInSeconds(new Date(), isActive.s)
+        }
+    })
+    
+    // const existCycle = cycles.find((idCycle) => idCycle.id === isActive)
 
-
-    const [secondsComparesion, setSecondsComparesion] = useState(0)
-
-    const existCycle = cycles.find((idCycle) => idCycle.id === isActive)
 
     function markCycleFinished() {
         dispatch(markCycleFinishedActions())

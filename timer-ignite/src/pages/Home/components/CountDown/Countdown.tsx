@@ -23,13 +23,11 @@ export function Countdown() {
         
         if (existCycle) {
             interval = setInterval(() => {
-                SecondsNow = differenceInSeconds(new Date(), existCycle.start)
+                SecondsNow = differenceInSeconds(new Date(), new Date(existCycle.start))
 
                 if(SecondsNow >= totalSeconds) {
                     markCycleFinished()
-                    console.log('oi1')
                     clearInterval(interval)
-                    console.log('oi2')
                     setChangingSeconds(totalSeconds)
                 } else {
                     setChangingSeconds(SecondsNow)
